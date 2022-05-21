@@ -21,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
-        tools:layout_editor_absoluteX="151dp"
-        tools:layout_editor_absoluteY="154dp" />
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="155dp" />
 
     <Spinner
         android:id="@+id/dropDownMenu"
@@ -40,4 +40,13 @@
         android:visibility="invisible"
         tools:layout_editor_absoluteX="111dp"
         tools:layout_editor_absoluteY="618dp" />
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="96dp"
+        android:layout_height="50dp"
+        android:text="TextView"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="262dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

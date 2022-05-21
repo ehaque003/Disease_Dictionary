@@ -14,39 +14,47 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 public class HttpHandler {
-    public String[] apiCallMethod(String diseaseName) {
+
+    static String response23 = "";
+
+    public static String[] apiCallMethod(String diseaseName) {
         String[] info = null;
-        try {
-            URL url = new URL("https://disease-info-api.herokuapp.com/diseases/" + diseaseName);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setAllowUserInteraction(false);
-            conn.setInstanceFollowRedirects(true);
-            conn.setRequestMethod("GET");
-            conn.connect();
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuilder sb = new StringBuilder();
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n");
+
+        new Thread() {
+            public void run() {
+                try {
+
+                    URL url = new URL("https://disease-info-api.herokuapp.com/diseases/" + diseaseName);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setAllowUserInteraction(false);
+                    conn.setInstanceFollowRedirects(true);
+                    conn.setRequestMethod("GET");
+                    conn.connect();
+                    InputStream in = new BufferedInputStream(conn.getInputStream());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder sb = new StringBuilder();
+                    String line = "";
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line).append("\n");
+                    }
+                    in.close();
+                    response23 = sb.toString();
+
+
+
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            in.close();
-            String response2 = sb.toString();
-            info = jsonFormatter(response2, diseaseName);
-
-
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed");
-        }
+        };
         return info;
     }
 
-    public String[] jsonFormatter(String response, String name){
+    public static String[] jsonFormatter(String response, String name){
         String[] info = new String[7];
 
         try{

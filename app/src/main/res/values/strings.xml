@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Disease Dictionary</string>
+    <string-array name="items">
+        <item>Symptoms</item>
+        <item>Facts</item>
+        <item>Transmission</item>
+        <item>Treatment</item>
+        <item>Diagnosis</item>
+        <item>Prevention</item>
+    </string-array>
 </resources>
