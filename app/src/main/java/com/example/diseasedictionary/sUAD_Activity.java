@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -154,6 +155,15 @@ public class sUAD_Activity extends AppCompatActivity {
 
             }
         });
+
+        backtohome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(sUAD_Activity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 
