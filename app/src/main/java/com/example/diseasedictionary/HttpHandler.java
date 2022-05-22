@@ -39,8 +39,12 @@ public class HttpHandler {
                     in.close();
                     String message = sb.toString();
                     Log.d("Warning", message);
-                    response23 = message;
-
+                    if(message.isEmpty()){
+                        response23="None";
+                    }
+                    else{
+                        response23 = message;
+                    }
 
 
                 } catch (ProtocolException e) {
