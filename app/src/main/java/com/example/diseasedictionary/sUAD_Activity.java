@@ -58,7 +58,7 @@ public class sUAD_Activity extends AppCompatActivity {
                     infos[3] = jsonObject.getJSONObject("disease").getJSONArray("facts").getString(1);
                 } catch (JSONException jsonException){
                     jsonException.printStackTrace();
-                    Log.d("Waring", "You dead");
+                    Log.d("Warning", "You dead");
                 }
 
 
