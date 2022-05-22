@@ -1,5 +1,7 @@
 package com.example.diseasedictionary;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,19 +15,15 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class
-HttpHandler {
-
-    static String response23 = "";
-
-    public static String[] apiCallMethod(String diseaseName) {
-        String[] info = null;
-
+public class HttpHandler {
+    String response23 = "";
+    public static final String TAG = "Info";
+    String[] info = {"", "", "", "", "", "", ""};
+    public void apiCallMethod(String diseaseName) throws InterruptedException {
         new Thread() {
             public void run() {
                 try {
-
-                    URL url = new URL("https://disease-info-api.herokuapp.com/diseases/" + diseaseName);
+                    URL url = new URL("https://disease-info-api.herokuapp.com/diseases/cholera.json");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setAllowUserInteraction(false);
                     conn.setInstanceFollowRedirects(true);
@@ -39,7 +37,9 @@ HttpHandler {
                         sb.append(line).append("\n");
                     }
                     in.close();
-                    response23 = sb.toString();
+                    String message = sb.toString();
+                    Log.d("Warning", message);
+                    response23 = message;
 
 
 
@@ -51,25 +51,14 @@ HttpHandler {
                     e.printStackTrace();
                 }
             }
-        };
-        return info;
+        }.start();
+        Thread.sleep(2000);
+
     }
 
-    public static String[] jsonFormatter(String response, String name){
-        String[] info = new String[7];
+    public void jsonFormatter(String name) throws InterruptedException {
+        apiCallMethod(name);
 
-        try{
-            JSONObject jsonObject = new JSONObject(response);
-            info[0] = jsonObject.getJSONObject("disease").getString("symptoms");
-            info[1] = jsonObject.getJSONObject("disease").getString("transmission");
-            info[2] = jsonObject.getJSONObject("disease").getString("treatments");
-            info[4] = jsonObject.getJSONObject("disease").getString("diagnosis");
-            info[5] = jsonObject.getJSONObject("disease").getString("prevention");
-            info[3] = jsonObject.getJSONObject("disease").getJSONArray("facts").getString(1);
-        } catch (JSONException jsonException){
-            apiCallMethod(name);
-        }
-        return info;
     }
 
 
