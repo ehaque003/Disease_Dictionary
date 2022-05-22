@@ -11,10 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        android:layout_marginEnd="88dp"
+        android:layout_marginEnd="60dp"
         android:ems="10"
         android:hint="Search Up A Disease"
         android:inputType="textPersonName"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/dropDownMenu"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,14 +26,15 @@
         android:layout_marginStart="156dp"
         android:layout_marginTop="40dp"
         android:text="Search"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBox" />
 
     <Spinner
         android:id="@+id/dropDownMenu"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
+        android:layout_width="335dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="84dp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,14 +51,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/info"
-        android:layout_width="379dp"
-        android:layout_height="493dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="116dp"
-        android:text="TextView"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <ScrollView
+        android:layout_width="413dp"
+        android:layout_height="491dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBox">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="379dp"
+                android:layout_height="774dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="116dp"
+                android:text="TextView"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
