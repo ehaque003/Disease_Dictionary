@@ -1,7 +1,11 @@
 package com.example.diseasedictionary;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class sUAD_Activity extends AppCompatActivity {
-    String[] infos = new String[7];
+    static AppDataDBHelper dbHelper = null;
+    String[] infos = new String[6];
     String[] options = {"Symptoms", "Facts", "Transmission", "Treatment", "Diagnosis", "Prevention"};
     TextView info;
     HttpHandler handler = new HttpHandler();
@@ -24,6 +29,7 @@ public class sUAD_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suad);
+        dbHelper = new AppDataDBHelper(getBaseContext());
         Spinner spinner = findViewById(R.id.dropDownMenu);
         Button search = findViewById(R.id.search);
         info = findViewById(R.id.info);
@@ -35,6 +41,7 @@ public class sUAD_Activity extends AppCompatActivity {
 
 
         search.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 String diseaseEntry = searchBox.getText().toString();
@@ -53,14 +60,12 @@ public class sUAD_Activity extends AppCompatActivity {
                     infos[2] = jsonObject.getJSONObject("disease").getString("treatment");
                     infos[4] = jsonObject.getJSONObject("disease").getString("diagnosis");
                     infos[5] = jsonObject.getJSONObject("disease").getString("prevention");
-
-
                     infos[3] = jsonObject.getJSONObject("disease").getJSONArray("facts").getString(1);
                 } catch (JSONException jsonException){
                     jsonException.printStackTrace();
-                    Log.d("Waring", "You dead");
+                    Log.d("Warning", "You dead");
                 }
-
+                writeToDB(diseaseEntry);
 
                 searchBox.setVisibility(View.INVISIBLE);
                 search.setVisibility(View.INVISIBLE);
@@ -131,6 +136,22 @@ public class sUAD_Activity extends AppCompatActivity {
             }
         });
 
+
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void writeToDB(String name) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(AppDataRepo.SearchEntry.COLUMN_NAME_DISEASENAME, name);
+        values.put(AppDataRepo.SearchEntry.COLUMN_NAME_DIAGNOSIS, infos[4]);
+        values.put(AppDataRepo.SearchEntry.COLUMN_NAME_PREVENTION, infos[5]);
+        values.put(AppDataRepo.SearchEntry.COLUMN_NAME_TREATMENT, infos[2]);
+        values.put(AppDataRepo.SearchEntry.COLUMN_NAME_FACTS, infos[3]);
+        values.put(AppDataRepo.SearchEntry.COLUMN_NAME_TRANSMISSIONS, infos[1]);
+        values.put(AppDataRepo.SearchEntry.COLUMN_NAME_SYMPTOMS, infos[0]);
+        values.put(AppDataRepo.SearchEntry.COLUMN_NAME_DIAGNOSIS, infos[4]);
+        db.insert(AppDataRepo.SearchEntry.TABLE_NAME, null, values);
 
 
     }

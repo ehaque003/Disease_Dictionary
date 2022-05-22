@@ -23,7 +23,7 @@ public class HttpHandler {
         new Thread() {
             public void run() {
                 try {
-                    URL url = new URL("https://disease-info-api.herokuapp.com/diseases/cholera.json");
+                    URL url = new URL("https://disease-info-api.herokuapp.com/diseases/"+diseaseName+".json");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setAllowUserInteraction(false);
                     conn.setInstanceFollowRedirects(true);
