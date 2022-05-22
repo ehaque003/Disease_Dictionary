@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.diseasedictionary">
-    <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,9 @@
         android:theme="@style/Theme.DiseaseDictionary"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".searchHistory"
+            android:exported="false" />
         <activity
             android:name=".sUAD_Activity"
             android:exported="false" />
